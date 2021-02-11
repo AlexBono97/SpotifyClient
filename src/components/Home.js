@@ -28,7 +28,7 @@ const Home = (props) => {
         <div className="login">
           <Header />
           {sessionExpired && (
-            <Alert variant="info">Session expired. Please login again.</Alert>
+            <Alert variant="info">You have been logged out. Please login again.</Alert>
           )}
           <Button variant="info" type="submit" onClick={handleLogin}>
             Login to spotify
