@@ -5,6 +5,7 @@ import {
 } from '../actions/result';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import SearchResult from './SearchResult';
 import SearchForm from './SearchForm';
 import Header from './Header';
@@ -12,7 +13,7 @@ import Loader from './Loader';
 
 const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { isValidSession, history } = props;
+  const { isValidSession, history} = props;
 
   const handleSearch = (searchTerm) => {
     if (isValidSession()) {
@@ -30,6 +31,12 @@ const Dashboard = (props) => {
     }
   };
 
+  const loggingOut = () => {
+    localStorage.removeItem('expiry_time');
+    localStorage.removeItem('params');
+    window.location.reload()
+  };
+
 
   const { tracks } = props;
 
@@ -37,7 +44,13 @@ const Dashboard = (props) => {
     <React.Fragment>
       {isValidSession() ? (
         <div>
-          <Header />
+        <div>
+        <Header />
+        <Button variant="info" type="submit" onClick={loggingOut}>
+            LogOut
+          </Button>
+        </div>
+          
           <SearchForm handleSearch={handleSearch} />
           <Loader show={isLoading}>Loading...</Loader>
           <SearchResult

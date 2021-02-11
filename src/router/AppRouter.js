@@ -12,13 +12,10 @@ const AppRouter = (props) => {
 
   const isValidSession = () => {
     const currentTime = new Date().getTime();
-    const currentExpiryTime = expiryTime;
-    const isSessionValid = currentTime < currentExpiryTime;
+    const isSessionValid = currentTime < expiryTime;
   
     return isSessionValid;
   };
-  
-
 
   React.useEffect(() => {
     let expiryTime;
