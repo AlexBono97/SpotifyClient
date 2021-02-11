@@ -10,6 +10,7 @@ import SearchResult from './SearchResult';
 import SearchForm from './SearchForm';
 import Header from './Header';
 import Loader from './Loader';
+import HeaderBar from './HeaderBar';
 
 const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,13 +32,6 @@ const Dashboard = (props) => {
     }
   };
 
-  const loggingOut = () => {
-    localStorage.removeItem('expiry_time');
-    localStorage.removeItem('params');
-    window.location.reload()
-  };
-
-
   const { tracks } = props;
 
   return (
@@ -45,10 +39,7 @@ const Dashboard = (props) => {
       {isValidSession() ? (
         <div>
         <div>
-        <Header />
-        <Button variant="info" type="submit" onClick={loggingOut}>
-            LogOut
-          </Button>
+        <HeaderBar/>
         </div>
           
           <SearchForm handleSearch={handleSearch} />
