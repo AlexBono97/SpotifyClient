@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Table, Image } from "react-bootstrap";
+import { Table, Image, Button } from "react-bootstrap";
 import _ from "lodash";
 import music from "../images/music.jpeg";
 
@@ -27,7 +27,11 @@ const TracksList = ({ tracks }) => {
         <td>{track.name}</td>
         <td>{track.album.name}</td>
         <td>{msToPlayMinutes(track.duration_ms)}</td>
-        <td>button</td>
+        <td>
+          <Button variant="info" type="submit">
+            +
+          </Button>
+        </td>
       </tr>
     );
   };
@@ -36,22 +40,20 @@ const TracksList = ({ tracks }) => {
     <React.Fragment>
       {Object.keys(tracks).length > 0 && (
         <div className="tracks">
-              <React.Fragment>
-                <Table responsive stripped bordered hover variant="dark">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>Song</th>
-                      <th>Album</th>
-                      <th>Duration</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tracks.items.map(renderSongs)}
-                  </tbody>
-                </Table>
-              </React.Fragment>
+          <React.Fragment>
+            <Table responsive bordered hover variant="dark">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Song</th>
+                  <th>Album</th>
+                  <th>Duration</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>{tracks.items.map(renderSongs)}</tbody>
+            </Table>
+          </React.Fragment>
         </div>
       )}
     </React.Fragment>

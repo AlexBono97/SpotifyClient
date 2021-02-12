@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, NavDropdown, Nav, Image } from "react-bootstrap";
 import _ from 'lodash';
 import SearchForm from "./SearchForm";
+import MyLibrary from './MyLibrary';
 import incognito from '../images/incognito.png';
 
 
@@ -23,7 +24,6 @@ const HeaderBar = (props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="">My Library</Nav.Link>
             <NavDropdown 
               title={
                 <>
