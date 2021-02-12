@@ -24,10 +24,7 @@ const Dashboard = (props) => {
 
   React.useEffect(() => {
     if(_.isEmpty(userData)){
-    props.dispatch(getCurrentUserInfo()).then(() => {
-      console.log("Got User Data~!");
-      console.log(userData);
-    });}
+      props.dispatch(getCurrentUserInfo());}
 
   },[]);
 
@@ -36,6 +33,7 @@ const Dashboard = (props) => {
       setIsLoading(true);
       props.dispatch(initiateGetResult(searchTerm)).then(() => {
         setIsLoading(false);
+        console.log(tracks);
       });
     } else {
       history.push({

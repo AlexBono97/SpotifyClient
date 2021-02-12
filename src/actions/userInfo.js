@@ -14,7 +14,6 @@ export const getCurrentUserInfo = () => {
             const API_URL = `https://api.spotify.com/v1/me`;
             const result = await get(API_URL);
             if(result){
-            console.log(result);
             return dispatch(setUser(result));
             }
             return;
