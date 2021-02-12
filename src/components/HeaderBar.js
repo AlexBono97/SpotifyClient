@@ -2,7 +2,6 @@ import React from "react";
 import { Navbar, NavDropdown, Nav, Image } from "react-bootstrap";
 import _ from 'lodash';
 import SearchForm from "./SearchForm";
-import MyLibrary from './MyLibrary';
 import incognito from '../images/incognito.png';
 
 
