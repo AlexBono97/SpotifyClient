@@ -1,63 +1,80 @@
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import _ from 'lodash';
-import music from '../images/music.jpeg';
+import React from "react";
+import { Card, Table, Image } from "react-bootstrap";
+import _ from "lodash";
+import music from "../images/music.jpeg";
 
 const TracksList = ({ tracks }) => {
-
   const msToPlayMinutes = (ms) => {
     return new Date(ms).toISOString().slice(14, -5);
-}
+  };
+
+  const renderSongs = (track, index) => {
+    return (
+      <tr key={index}>
+        <td>
+          {!_.isEmpty(track.album.images) ? (
+            <Image
+              heigh="90"
+              width="90"
+              variant="top"
+              src={track.album.images[0].url}
+              alt=""
+            />
+          ) : (
+            <img src={music} alt="" />
+          )}
+        </td>
+        <td>{track.name}</td>
+        <td>{track.album.name}</td>
+        <td>{msToPlayMinutes(track.duration_ms)}</td>
+        <td>button</td>
+      </tr>
+    );
+  };
 
   return (
     <React.Fragment>
       {Object.keys(tracks).length > 0 && (
         <div className="tracks">
-          {tracks.items.map((track, index) => {
-
-            return (
-              <React.Fragment key={index}>
-                <Card style={{ width: '15rem'}}>
-                  <a
-                    target="_blank"
-                    href={track.external_urls.spotify}
-                    rel="noopener noreferrer"
-                    className="card-image-link"
-                  >
-                    {!_.isEmpty(track.album.images) ? (
-                      <Card.Img
-                        
-                        variant="top"
-                        src={track.album.images[0].url}
-                        alt=""
-                      />
-                    ) : (
-                      <img src={music} alt="" />
-                    )}
-                  </a>
-                  <Card.Body>
-                    <Card.Title>{track.name}</Card.Title>
-                    <Card.Text>
-                      <small>
-                      {"Album: "+track.album.name}
-                      </small>
-                      <br></br>
-                      <small>
-                        {"Artists: "+track.artists.map((artist) => artist.name).join(', ')}
-                      </small>
-                      <br></br>
-                      <small>{"Duration: "+msToPlayMinutes(track.duration_ms)}</small>
-
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+              <React.Fragment>
+                <Table responsive stripped bordered hover variant="dark">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Song</th>
+                      <th>Album</th>
+                      <th>Duration</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tracks.items.map(renderSongs)}
+                  </tbody>
+                </Table>
               </React.Fragment>
-            );
-
-          })}
         </div>
       )}
     </React.Fragment>
   );
 };
 export default TracksList;
+
+/*
+<tr>
+                      <td>
+                        {!_.isEmpty(track.album.images) ? (
+                          <Image heigh="90" width="90"
+                            variant="top"
+                            src={track.album.images[0].url}
+                            alt=""
+                          />
+                        ) : (
+                          <img src={music} alt="" />
+                        )}
+                      </td>
+                      <td>{track.name}</td>
+                      <td>{track.album.name}</td>
+                      <td>{msToPlayMinutes(track.duration_ms)}</td>
+                      <td>button</td>
+                    </tr>
+*/
