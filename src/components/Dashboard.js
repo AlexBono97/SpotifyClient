@@ -3,18 +3,33 @@ import React, { useState } from 'react';
 import {
   initiateGetResult,
 } from '../actions/result';
-import { connect } from 'react-redux';
+import { getCurrentUserInfo } from '../actions/userInfo';
+import { connect, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import _ from 'lodash';
 import SearchResult from './SearchResult';
 import SearchForm from './SearchForm';
 import Header from './Header';
 import Loader from './Loader';
 import HeaderBar from './HeaderBar';
 
+
+const selectData = state => state.userInfo;
 const Dashboard = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { isValidSession, history} = props;
+  
+  const userData = useSelector(selectData);
+
+  React.useEffect(() => {
+    if(_.isEmpty(userData)){
+    props.dispatch(getCurrentUserInfo()).then(() => {
+      console.log("Got User Data~!");
+      console.log(userData);
+    });}
+
+  },[]);
 
   const handleSearch = (searchTerm) => {
     if (isValidSession()) {
@@ -32,14 +47,14 @@ const Dashboard = (props) => {
     }
   };
 
-  const { tracks } = props;
+  const { tracks} = props;
 
   return (
     <React.Fragment>
       {isValidSession() ? (
         <div>
         <div>
-        <HeaderBar/>
+        <HeaderBar userInfo={userData} />
         </div>
           
           <SearchForm handleSearch={handleSearch} />
@@ -66,6 +81,7 @@ const Dashboard = (props) => {
 const mapStateToProps = (state) => {
   return {
     tracks: state.tracks,
+    userData: state.userData
   };
 };
 

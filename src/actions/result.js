@@ -21,9 +21,7 @@ import {
           searchTerm
         )}&type=track`;
         const result = await get(API_URL);
-        console.log(result);
         const { tracks } = result;
-        console.log("THIS IS A TRACK:"+ tracks.items.length);
         return dispatch(setTracks(tracks));
       } catch (error) {
         console.log('error', error);
